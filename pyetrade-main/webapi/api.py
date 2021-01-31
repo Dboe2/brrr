@@ -13,4 +13,4 @@ def home():
 def api_accounts_list():
     return 'List sample'
 
-app.run()
+app.run(host="0.0.0.0", port=int("5000"), debug=True)
