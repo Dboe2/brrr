@@ -4,14 +4,16 @@ FROM python:3.6
 WORKDIR /app
 
 # Install app dependencies
-COPY src/requirements.txt ./
+COPY pyetrade-main/requirements.txt ./
 
 RUN pip install -r requirements.txt
 
 # Bundle app source
-COPY src /app
-RUN make init
-RUN make install
+COPY pyetrade-main /app
+RUN cd /app && \
+    make init && \
+    make install
+
 
 # EXPOSE 8080
 # CMD [ "python", "server.py" ]
