@@ -18,6 +18,7 @@ def home():
 
 @app.route('/api/v1/test', methods=['GET'])
 def api_accounts_list():
-    return client.get_secret('etradeSandboxKey')
+    retrievedSecret = client.get_secret('etradeSandboxKey')
+    return retrievedSecret.value
 
 app.run(host="0.0.0.0", port=int("5000"), debug=True)
