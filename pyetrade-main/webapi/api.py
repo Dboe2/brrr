@@ -1,7 +1,14 @@
 import flask, pyetrade
-from flask import request, jsonify
+from flask import Flask, request, jsonify
+from azure.keyvault.secrets import SecretClient
+from azure.identity import DefaultAzureCredential
 
-app = flask.Flask(__name__)
+KVUri = f"https://brrkeys1.vault.azure.net"
+credential = DefaultAzureCredential()
+client = SecretClient(vault_url=KVUri, credential=credential)
+
+app = Flask(__name__)
+
 app.config["DEBUG"] = True
 
 
@@ -9,8 +16,8 @@ app.config["DEBUG"] = True
 def home():
     return "<h1>Pyetrade API</h1><p>This site is a prototype API for pyetrade.</p>"
 
-@app.route('/api/v1/accounts/list', methods=['GET'])
+@app.route('/api/v1/test', methods=['GET'])
 def api_accounts_list():
-    return 'List sample'
+    return client.get_secret('etradeSandboxKey')
 
 app.run(host="0.0.0.0", port=int("5000"), debug=True)

@@ -3,3 +3,5 @@ requests_oauthlib
 xmltodict
 jxmlease
 flask
+azure-identity
+azure-keyvault-secrets
