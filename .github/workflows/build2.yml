@@ -48,5 +48,5 @@ jobs:
           context: .
           file: ./pyetrade-main/Dockerfile
           push: true
-          tags: user/pyetrade:latest 
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pyetrade:latest 
         
