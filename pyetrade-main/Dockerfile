@@ -14,6 +14,6 @@ RUN cd /app && \
     make init && \
     make install
 
-
-# EXPOSE 8080
-# CMD [ "python", "server.py" ]
+# Run the flask app
+EXPOSE 5000
+CMD [ "python", "webapi/api.py" ]
