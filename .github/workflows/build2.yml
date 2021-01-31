@@ -48,5 +48,11 @@ jobs:
           context: .
           file: ./pyetrade-main/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pyetrade:latest 
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pyetrade:${{ github.sha }} 
         
+      # Deploy to Azure Webapps container
+      - uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'BrrApp1'
+          publish-profile: ${{ secrets.APPSERVICE_PUBLISHPROFILE }}
+          images: 'saitcho/pyetrade:${{ github.sha }}'
