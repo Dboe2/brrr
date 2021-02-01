@@ -5,3 +5,5 @@ jxmlease
 flask
 azure-identity
 azure-keyvault-secrets
+selenium
+chromium-chromedriver

@@ -5,8 +5,9 @@ WORKDIR /app
 
 # Install app dependencies
 COPY pyetrade-main/requirements.txt ./
-
-RUN pip install -r requirements.txt
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb &&\
+    dpkg -i google-chrome-stable_current_amd64.deb && \
+    pip install -r requirements.txt
 
 # Bundle app source
 COPY pyetrade-main /app

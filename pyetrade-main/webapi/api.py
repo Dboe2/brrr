@@ -2,15 +2,28 @@ import flask, pyetrade
 from flask import Flask, request, jsonify
 from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
+from selenium import webdriver
 
 KVUri = f"https://brrkeys1.vault.azure.net"
 credential = DefaultAzureCredential()
 client = SecretClient(vault_url=KVUri, credential=credential)
 consumer_key = client.get_secret('etradeSandboxKey').value
 consumer_secret = client.get_secret('etradeSandboxSecret').value
+etrade_username = client.get_secret('etradeUsername').value
+etrade_password = client.get_secret('etradePassword').value
 
 oauth = pyetrade.ETradeOAuth(consumer_key, consumer_secret)
 tokenurl = oauth.get_request_token()
+
+driver = webdriver.Chrome()
+driver.get(tokenurl)
+driver.find_element_by_xpath('//*[@id="user_orig"]').send_keys('saitcho666')
+driver.find_element_by_xpath('//*[@id="log-on-form"]/div[2]/div[2]/div/input').send_keys('Xwingx12!!')
+driver.find_element_by_xpath('//*[@id="logon_button"]').click()
+driver.get(tokenurl)
+driver.find_element_by_xpath('/html/body/div[2]/div/div[2]/form/input[3]').click()
+code = driver.find_element_by_xpath('/html/body/div[2]/div/div/input').getAttribute('value')
+tokens = oauth.get_access_token(code)
 
 app = Flask(__name__)
 
