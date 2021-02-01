@@ -36,12 +36,12 @@ def home():
 
 @app.route('/api/v1/accounts/list', methods=['GET'])
 def api_accounts_list():
-    accounts = pyetrade.ETradeAccounts(
-        consumer_key,
-        consumer_secret,
-        tokens['oauth_token'],
-        tokens['oauth_token_secret']
-    )
-    return print(accounts.list_accounts())
+    # accounts = pyetrade.ETradeAccounts(
+    #     consumer_key,
+    #     consumer_secret,
+    #     tokens['oauth_token'],
+    #     tokens['oauth_token_secret']
+    # )
+    return print(tokens)
 
 app.run(host="0.0.0.0", port=int("5000"), debug=True)
