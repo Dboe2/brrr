@@ -5,10 +5,12 @@ WORKDIR /app
 
 # Install app dependencies
 COPY pyetrade-main/requirements.txt ./
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb &&\
-    dpkg -i google-chrome-stable_current_amd64.deb && \
-    apt-get install chromium-chromedriver && \
-    pip install -r requirements.txt
+RUN curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /chrome.deb &&\
+    dpkg -i /chrome.deb || apt-get install -yf && \
+    rm /chrome.deb
+RUN curl https://chromedriver.storage.googleapis.com/88.0.4324.96/chromedriver_linux64.zip -o /usr/local/bin/chromedriver && \
+    chmod +x /usr/local/bin/chromedriver
+RUN pip install -r requirements.txt
 
 # Bundle app source
 COPY pyetrade-main /app
